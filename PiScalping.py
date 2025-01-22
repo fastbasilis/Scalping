@@ -4,6 +4,7 @@ import os
 from openpyxl import Workbook, load_workbook
 from bs4 import BeautifulSoup
 import requests
+from curl_cffi import requests as req
 import traceback
 import time
 import httpx
@@ -49,6 +50,7 @@ URL_DUA = 'https://www.dualipa.com/tour/'
 URL_DUA_TMAST = 'https://www.ticketmaster.com/dua-lipa-tickets/artist/2179476'
 URL_UEFA = ('https://uclf.hospitality.uefa.com/', 'https://uelf.hospitality.uefa.com/')
 US_OPEN = 'https://www.usopen.org/en_US/cms/feeds/tickets/individual_tickets.xml'
+CINCINNATI = 'https://cincinnatiopen.com/tickets/single-sessions-2/'
 
 def send_email(subject, content, link):
     """Send an email notification."""
@@ -616,28 +618,48 @@ def check_uefa(url):
 
 def check_us_open():
     title, description = None, None
-    r = requests.get("https://www.usopen.org/en_US/cms/feeds/tickets/individual_tickets.xml", impersonate="chrome124")
+    r = req.get(US_OPEN, impersonate="chrome124")
     soup = BeautifulSoup(r.content.decode('utf-8', 'ignore'), 'xml')
 
     data_reference = soup.find('data', {'reference': '_41e4b950_e2bb'})
     if data_reference:
         title = data_reference.find('title').get_text(strip=True)
         description = data_reference.find('description').get_text(strip=True)
-
-        # Print the extracted texts
-        print("Title:", title)
-        print("Description:", description)
     else:
         print("The required data reference was not found.")
 
     if "Thank you for attending the 2024 US Open!" in title and "We look forward to seeing you next year at the 2025 US Open! Sign up to become a US Open Insider or subscribe to text alerts to be notified when tickets go on sale." in description:
         print(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'), "No available tickets for US OPEN 2025")
     else:
-        send_email("Tickets for Final 4 2025", "Game is on", US_OPEN)
+        send_email("Tickets for US OPEN 2025", "Game is on", US_OPEN)
         print(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'), "Tickets are now available for US OPEN 2025")
 
-def main():
 
+def cincinnati():
+    r = req.get(CINCINNATI, impersonate="chrome124")
+    soup = BeautifulSoup(r.content.decode('utf-8', 'ignore'), 'html.parser')
+    # print(soup.prettify())
+
+    show = soup.find('div', class_='wrapper full-width-container').text.strip()
+
+    normalized_show = ' '.join(show.split())
+
+    expected_text = ("Single Session tickets for the 2025 Cincinnati Open will go on sale in Spring 2025. "
+                     "For 24-hour early access to Single Session tickets, register for the 2025 ticket pre-sale. "
+                     "Create your own Cincinnati Open experience by choosing the day, time, price and players that are the best fit for you. "
+                     "Center Court Single Session tickets give you a reserved seat at Center Court, full access to the tournament grounds, including every match and practice court, a public parking lot, the opportunity to enjoy a variety of on-site entertainment, and the ability to explore our many dining and drink options. "
+                     "Single Session tickets to P&G Grandstand Court grant you the same amenities except for access to enter Center Court. "
+                     "To explore premium seating options, click here.")
+
+    # Check if the normalized show matches the expected text
+    if normalized_show == expected_text:
+        print(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'), "No available tickets for Cincinnati 2025")
+    else:
+        send_email("Tickets for Cincinnati 2025", "Game is on", CINCINNATI)
+        print(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'), "Tickets are now available for Cincinnati 2025")
+
+
+def main():
     display = Display(visible=0, size=(1280, 720))
     display.start()
 
@@ -666,6 +688,7 @@ def main():
         # check_wimbledon(driver)
         # check_barcelona() # ΘΕΛΕΙ ΑΛΛΑΓΗ
         check_us_open()
+        cincinnati()
 
         # FOOTBALL - BASKETBALL
         check_final4()
