@@ -666,12 +666,11 @@ def main():
         # check_wimbledon(driver)
         # check_barcelona() # ΘΕΛΕΙ ΑΛΛΑΓΗ
         check_us_open()
+
+        # FOOTBALL - BASKETBALL
         check_final4()
-
-
-        if datetime.datetime.now().month in [11, 12]:
-            for url in URL_UEFA:
-                check_uefa(url)
+        for url in URL_UEFA:
+            check_uefa(url)
 
         if datetime.datetime.now().day in [5, 10, 15, 20, 25, 30] and datetime.datetime.now().hour in [8]:
             send_email("Check", "OK", "Καλά πάει το Scalping")
