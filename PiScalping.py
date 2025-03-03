@@ -34,23 +34,33 @@ driver_path = "/usr/bin/chromedriver"
 EXCEL_FILE = "/usr/pi/Tick_Num.xlsx"
 CELL = 'A1'
 
+# TENNIS
 URL_AO_INFO = 'https://ausopen.com/ticket-info#faqs'
 URL_AO_TMAST = 'https://www.ticketmaster.com.au/browse/tennis-catid-31/sports-rid-10004?startDate=2025-01-12&endDate=2025-01-26'
 URL_WIBLDN = 'https://www.wimbledon.com/en_GB/tickets/index.html'
-URL_TAYLOR_OFFICIAL = 'https://www.taylorswift.com/tour/'
-URL_TAYLOR_TMAST = 'https://www.ticketmaster.com/taylor-swift-tickets/artist/1094215'
-URL_COLDPLAY_OFFICIAL = 'https://www.coldplay.com/tour/'
-URL_COLDPLAY_TMAST = 'https://www.ticketmaster.com/coldplay-tickets/artist/806431'
-URL_ADELE_OFFICIAL = 'https://www.adele.com/'
-URL_ADELE_TMAST = 'https://www.ticketmaster.com/adele-tickets/artist/1159272'
-URL_FINAL4 = 'https://www.f4tickets.com/'
 URL_BARCA = 'https://www.barcelonaopenbancsabadell.com/en/news/' # Tickets URL = 'https://www.barcelonaopenbancsabadell.com/en/tickets-3/'
 URL_CINCH = 'https://www.lta.org.uk/support-centre/major-events/cinch-championships/2025-london-championships/when-will-tickets-go-on-sale-for-the-2025-london-championship-and-how-can-i-purchase-them/'
-URL_DUA = 'https://www.dualipa.com/tour/'
-URL_DUA_TMAST = 'https://www.ticketmaster.com/dua-lipa-tickets/artist/2179476'
-URL_UEFA = ('https://uclf.hospitality.uefa.com/', 'https://uelf.hospitality.uefa.com/')
 US_OPEN = 'https://www.usopen.org/en_US/cms/feeds/tickets/individual_tickets.xml'
 CINCINNATI = 'https://cincinnatiopen.com/tickets/single-sessions-2/'
+
+URL_TAYLOR_OFFICIAL = 'https://www.taylorswift.com/tour/'
+URL_COLDPLAY_OFFICIAL = 'https://www.coldplay.com/tour/'
+URL_ADELE_OFFICIAL = 'https://www.adele.com/'
+URL_DUA = 'https://www.dualipa.com/tour/'
+
+URL_TAYLOR_TMAST = 'https://www.ticketmaster.com/taylor-swift-tickets/artist/1094215'
+URL_ADELE_TMAST = 'https://www.ticketmaster.com/adele-tickets/artist/1159272'
+URL_COLDPLAY_TMAST = 'https://www.ticketmaster.com/coldplay-tickets/artist/806431'
+URL_DUA_TMAST = 'https://www.ticketmaster.com/dua-lipa-tickets/artist/2179476'
+URL_CARPENTER_TMAST = 'https://www.ticketmaster.com/sabrina-carpenter-tickets/artist/2001092'
+URL_RODRIGO_TMAST = 'https://www.ticketmaster.com/olivia-rodrigo-tickets/artist/2836194'
+URL_EILISH_TMST = 'https://www.ticketmaster.com/billie-eilish-tickets/artist/2257710'
+URL_BEYONCE_TMST = 'https://www.ticketmaster.com/beyonce-tickets/artist/894191'
+URL_CABELLO_TMST = 'https://www.ticketmaster.com/camila-cabello-tickets/artist/2362959'
+URL_METALLICA_TMST = 'https://www.ticketmaster.com/metallica-tickets/artist/735647'
+URL_UEFA = ('https://uclf.hospitality.uefa.com/', 'https://uelf.hospitality.uefa.com/')
+URL_FINAL4 = 'https://www.f4tickets.com/'
+
 
 def send_email(subject, content, link):
     """Send an email notification."""
@@ -153,8 +163,8 @@ def check_ao_ticketmaster():
                 print("No products found. Lets retry!\n")
 
         if attempt == 10:
-            print("After 10 attempts no products found!\n")
-            send_email("Tickets AO Ticketmaster 10 attempts", "10 attempts", URL_AO_TMAST)
+            print("After 5 attempts no products found!\n")
+            send_email("Tickets AO Ticketmaster 5 attempts", "5 attempts", URL_AO_TMAST)
             return
         if "Sorry... there are currently no upcoming events." in shows:
             print(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'), "No available tickets for AO Ticketmaster")
@@ -247,8 +257,8 @@ def check_coldplay_official_site():
                 print(f"Attempt {attempt}: No products found. Let's retry!\n")
 
         else:  # This block executes if no break occurred in the loop (all attempts failed)
-            print("After 10 attempts, no products found!\n")
-            send_email("Tickets Coldplay official 10 attempts", "10 attempts", URL_COLDPLAY_OFFICIAL)
+            print("After 5 attempts, no products found!\n")
+            send_email("Tickets Coldplay official 5 attempts", "5 attempts", URL_COLDPLAY_OFFICIAL)
             return
 
         if "September 8 2025" in date:
@@ -331,7 +341,7 @@ def check_taylor_ticketmaster():
             # print(soup.prettify())
 
             # Attempt to extract the number of shows
-            shows_element = soup.find('span', class_='sc-lity5s-5 jrMtfE')
+            shows_element = soup.find('span', class_='sc-8d839fd8-5 iMxMG')
             if shows_element and shows_element.text.strip():
                 shows = shows_element.text.strip()
                 break
@@ -339,8 +349,8 @@ def check_taylor_ticketmaster():
                 print(f"Attempt {attempt}: No products found. Let's retry!\n")
 
         else:  # This block executes if no break occurred in the loop (all attempts failed)
-            print("After 10 attempts, no products found!\n")
-            send_email("Tickets Taylor Ticketmaster 10 attempts", "10 attempts", URL_TAYLOR_TMAST)
+            print("After 5 attempts, no products found!\n")
+            send_email("Tickets Taylor Ticketmaster 5 attempts", "5 attempts", URL_TAYLOR_TMAST)
             return
 
         # Parse the number of shows found
@@ -384,7 +394,7 @@ def check_coldplay_ticketmaster():
             # print(soup.prettify())
 
             # Attempt to extract the number of shows
-            shows_element = soup.find('span', class_='sc-lity5s-5 jrMtfE')
+            shows_element = soup.find('span', class_='sc-8d839fd8-5 iMxMG')
             if shows_element and shows_element.text.strip():
                 shows = shows_element.text.strip()
                 break
@@ -392,8 +402,8 @@ def check_coldplay_ticketmaster():
                 print(f"Attempt {attempt}: No products found. Let's retry!\n")
 
         else:
-            print("After 10 attempts, no products found!\n")
-            send_email("Tickets Coldplay Ticketmaster 10 attempts", "10 attempts", URL_COLDPLAY_TMAST)
+            print("After 5 attempts, no products found!\n")
+            send_email("Tickets Coldplay Ticketmaster 5 attempts", "5 attempts", URL_COLDPLAY_TMAST)
             return
 
         # Parse the number of shows found
@@ -437,7 +447,7 @@ def check_adele_ticketmaster():
             # print(soup.prettify())
 
             # Attempt to extract the number of shows
-            shows_element = soup.find('span', class_='sc-lity5s-5 jrMtfE')
+            shows_element = soup.find('span', class_='sc-8d839fd8-5 iMxMG')
             if shows_element and shows_element.text.strip():
                 shows = shows_element.text.strip()
                 break
@@ -445,8 +455,8 @@ def check_adele_ticketmaster():
                 print(f"Attempt {attempt}: No products found. Let's retry!\n")
 
         else:  # This block executes if no break occurred in the loop (all attempts failed)
-            print("After 10 attempts, no products found!\n")
-            send_email("Tickets Adele Ticketmaster 10 attempts", "10 attempts", URL_ADELE_TMAST)
+            print("After 5 attempts, no products found!\n")
+            send_email("Tickets Adele Ticketmaster 5 attempts", "5 attempts", URL_ADELE_TMAST)
             return
 
         # Parse the number of shows found
@@ -490,7 +500,7 @@ def check_dua_ticketmaster():
             # print(soup.prettify())
 
             # Attempt to extract the number of shows
-            shows_element = soup.find('span', class_='sc-lity5s-5 jrMtfE')
+            shows_element = soup.find('span', class_='sc-8d839fd8-5 iMxMG')
             if shows_element and shows_element.text.strip():
                 shows = shows_element.text.strip()
                 break
@@ -498,8 +508,8 @@ def check_dua_ticketmaster():
                 print(f"Attempt {attempt}: No products found. Let's retry!\n")
 
         else:  # This block executes if no break occurred in the loop (all attempts failed)
-            print("After 10 attempts, no products found!\n")
-            send_email("Tickets Dua Lipa Ticketmaster 10 attempts", "10 attempts", URL_DUA_TMAST)
+            print("After 5 attempts, no products found!\n")
+            send_email("Tickets Dua Lipa Ticketmaster 5 attempts", "5 attempts", URL_DUA_TMAST)
             return
 
         # Parse the number of shows found
@@ -526,6 +536,325 @@ def check_dua_ticketmaster():
     except Exception as e:
         send_email("Tickets Error", str(e), URL_DUA_TMAST)
         print(f"Error in check_Adele_ticketmaster: {e}\nURL: {URL_DUA_TMAST}")
+
+
+def check_carpenter_ticketmaster():
+    print("\n")
+    try:
+        for attempt in range(1, 6):  # attempt will range from 1 to 10
+            # Scraping Ant
+            conn = http.client.HTTPSConnection("api.scrapingant.com")
+            conn.request(
+                "GET",
+                f"/v2/general?url={URL_CARPENTER_TMAST}&x-api-key=38329e714321477bba68cf51da3cc822&return_page_source=true"
+            )
+            res = conn.getresponse()
+            datas = res.read()
+            datas = datas.decode("utf-8")
+            soup = BeautifulSoup(datas, 'html.parser')
+            # print(soup.prettify())
+
+            # Attempt to extract the number of shows
+            shows_element = soup.find('span', class_='sc-8d839fd8-5 iMxMG')
+            if shows_element and shows_element.text.strip():
+                shows = shows_element.text.strip()
+                break
+            else:
+                print(f"Attempt {attempt}: No products found. Let's retry!\n")
+
+        else:  # This block executes if no break occurred in the loop (all attempts failed)
+            print("After 5 attempts, no products found!\n")
+            send_email("Tickets Carpenter Ticketmaster 5 attempts", "5 attempts", URL_CARPENTER_TMAST)
+            return
+
+        # Parse the number of shows found
+        Scraped_Tick_Num = int(shows.replace("Results", "").strip())
+        Tick_Num = load_tick_num_from_excel(sheet_name='Carpenter') or 0
+        print("Scraped, Loaded:", Scraped_Tick_Num, Tick_Num)
+
+        # Decision-making based on the number of shows
+        if Scraped_Tick_Num > Tick_Num:
+            send_email("Tickets Available", "Sabrina Carpenter Ticketmaster", URL_CARPENTER_TMAST)
+            save_tick_num_to_excel(Scraped_Tick_Num, sheet_name='Carpenter')
+            print(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+                  "Tickets are now available for Sabrina Carpenter Ticketmaster")
+        elif Scraped_Tick_Num < Tick_Num:
+            save_tick_num_to_excel(Scraped_Tick_Num, sheet_name='Carpenter')
+            print(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+                  "No available tickets for Sabrina Carpenter Ticketmaster, Shows reduced")
+
+        else:
+            print(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+                  "No available tickets for Carpenter Ticketmaster, Shows number didn't change")
+
+    except Exception as e:
+        send_email("Tickets Error", str(e), URL_CARPENTER_TMAST)
+        print(f"Error in check_Carpenter_ticketmaster: {e}\nURL: {URL_CARPENTER_TMAST}")
+
+
+def check_rodrigo_ticketmaster():
+    print("\n")
+    try:
+        for attempt in range(1, 6):  # attempt will range from 1 to 10
+            # Scraping Ant
+            conn = http.client.HTTPSConnection("api.scrapingant.com")
+            conn.request(
+                "GET",
+                f"/v2/general?url={URL_RODRIGO_TMAST}&x-api-key=38329e714321477bba68cf51da3cc822&return_page_source=true"
+            )
+            res = conn.getresponse()
+            datas = res.read()
+            datas = datas.decode("utf-8")
+            soup = BeautifulSoup(datas, 'html.parser')
+            # print(soup.prettify())
+
+            # Attempt to extract the number of shows
+            shows_element = soup.find('span', class_='sc-8d839fd8-5 iMxMG')
+            if shows_element and shows_element.text.strip():
+                shows = shows_element.text.strip()
+                break
+            else:
+                print(f"Attempt {attempt}: No products found. Let's retry!\n")
+
+        else:  # This block executes if no break occurred in the loop (all attempts failed)
+            print("After 5 attempts, no products found!\n")
+            send_email("Tickets Rodrigo Ticketmaster 5 attempts", "5 attempts", URL_RODRIGO_TMAST)
+            return
+
+        # Parse the number of shows found
+        Scraped_Tick_Num = int(shows.replace("Results", "").strip())
+        Tick_Num = load_tick_num_from_excel(sheet_name='Rodrigo') or 0
+        print("Scraped, Loaded:", Scraped_Tick_Num, Tick_Num)
+
+        # Decision-making based on the number of shows
+        if Scraped_Tick_Num > Tick_Num:
+            send_email("Tickets Available", "Olivia Rodrigo Ticketmaster", URL_RODRIGO_TMAST)
+            save_tick_num_to_excel(Scraped_Tick_Num, sheet_name='Rodrigo')
+            print(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+                  "Tickets are now available for Olivia Rodrigo Ticketmaster")
+        elif Scraped_Tick_Num < Tick_Num:
+            save_tick_num_to_excel(Scraped_Tick_Num, sheet_name='Rodrigo')
+            print(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+                  "No available tickets for Olivia Rodrigo Ticketmaster, Shows reduced")
+        else:
+            print(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+                  "No available tickets for Olivia Rodrigo Ticketmaster, Shows number didn't change")
+
+    except Exception as e:
+        send_email("Tickets Error", str(e), URL_RODRIGO_TMAST)
+        print(f"Error in check_Rodrigo_ticketmaster: {e}\nURL: {URL_RODRIGO_TMAST}")
+
+
+def check_eilish_ticketmaster():
+    print("\n")
+    try:
+        for attempt in range(1, 6):  # attempt will range from 1 to 10
+            # Scraping Ant
+            conn = http.client.HTTPSConnection("api.scrapingant.com")
+            conn.request(
+                "GET",
+                f"/v2/general?url={URL_EILISH_TMST}&x-api-key=38329e714321477bba68cf51da3cc822&return_page_source=true"
+            )
+            res = conn.getresponse()
+            datas = res.read()
+            datas = datas.decode("utf-8")
+            soup = BeautifulSoup(datas, 'html.parser')
+            # print(soup.prettify())
+
+            # Attempt to extract the number of shows
+            shows_element = soup.find('span', class_='sc-8d839fd8-5 iMxMG')
+            if shows_element and shows_element.text.strip():
+                shows = shows_element.text.strip()
+                break
+            else:
+                print(f"Attempt {attempt}: No products found. Let's retry!\n")
+
+        else:  # This block executes if no break occurred in the loop (all attempts failed)
+            print("After 5 attempts, no products found!\n")
+            send_email("Tickets Eilish Ticketmaster 5 attempts", "5 attempts", URL_EILISH_TMST)
+            return
+
+        # Parse the number of shows found
+        Scraped_Tick_Num = int(shows.replace("Results", "").strip())
+        Tick_Num = load_tick_num_from_excel(sheet_name='Eilish') or 0
+        print("Scraped, Loaded:", Scraped_Tick_Num, Tick_Num)
+
+        # Decision-making based on the number of shows
+        if Scraped_Tick_Num > Tick_Num:
+            send_email("Tickets Available", "Billie Eilish Ticketmaster", URL_EILISH_TMST)
+            save_tick_num_to_excel(Scraped_Tick_Num, sheet_name='Eilish')
+            print(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+                  "Tickets are now available for Billie Eilish Ticketmaster")
+        elif Scraped_Tick_Num < Tick_Num:
+            save_tick_num_to_excel(Scraped_Tick_Num, sheet_name='Eilish')
+            print(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+                  "No available tickets for Billie Eilish Ticketmaster, Shows reduced")
+        else:
+            print(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+                  "No available tickets for Billie Eilish Ticketmaster, Shows number didn't change")
+
+    except Exception as e:
+        send_email("Tickets Error", str(e), URL_EILISH_TMST)
+        print(f"Error in check_Eilish_ticketmaster: {e}\nURL: {URL_EILISH_TMST}")
+
+
+def check_beyonce_ticketmaster():
+    print("\n")
+    try:
+        for attempt in range(1, 6):  # attempt will range from 1 to 10
+            # Scraping Ant
+            conn = http.client.HTTPSConnection("api.scrapingant.com")
+            conn.request(
+                "GET",
+                f"/v2/general?url={URL_BEYONCE_TMST}&x-api-key=38329e714321477bba68cf51da3cc822&return_page_source=true"
+            )
+            res = conn.getresponse()
+            datas = res.read()
+            datas = datas.decode("utf-8")
+            soup = BeautifulSoup(datas, 'html.parser')
+            # print(soup.prettify())
+
+            # Attempt to extract the number of shows
+            shows_element = soup.find('span', class_='sc-8d839fd8-5 iMxMG')
+            if shows_element and shows_element.text.strip():
+                shows = shows_element.text.strip()
+                break
+            else:
+                print(f"Attempt {attempt}: No products found. Let's retry!\n")
+
+        else:  # This block executes if no break occurred in the loop (all attempts failed)
+            print("After 5 attempts, no products found!\n")
+            send_email("Tickets Beyonce Ticketmaster 5 attempts", "5 attempts", URL_BEYONCE_TMST)
+            return
+
+        # Parse the number of shows found
+        Scraped_Tick_Num = int(shows.replace("Results", "").strip())
+        Tick_Num = load_tick_num_from_excel(sheet_name='Beyonce') or 0
+        print("Scraped, Loaded:", Scraped_Tick_Num, Tick_Num)
+
+        # Decision-making based on the number of shows
+        if Scraped_Tick_Num > Tick_Num:
+            send_email("Tickets Available", "Beyonce Ticketmaster", URL_BEYONCE_TMST)
+            save_tick_num_to_excel(Scraped_Tick_Num, sheet_name='Beyonce')
+            print(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+                  "Tickets are now available for Beyonce Ticketmaster")
+        elif Scraped_Tick_Num < Tick_Num:
+            save_tick_num_to_excel(Scraped_Tick_Num, sheet_name='Beyonce')
+            print(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+                  "No available tickets for Beyonce Ticketmaster, Shows reduced")
+        else:
+            print(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+                  "No available tickets for Beyonce Ticketmaster, Shows number didn't change")
+
+    except Exception as e:
+        send_email("Tickets Error", str(e), URL_BEYONCE_TMST)
+        print(f"Error in check_Beyonce_ticketmaster: {e}\nURL: {URL_BEYONCE_TMST}")
+
+
+def check_cabello_ticketmaster():
+    print("\n")
+    try:
+        for attempt in range(1, 6):  # attempt will range from 1 to 10
+            # Scraping Ant
+            conn = http.client.HTTPSConnection("api.scrapingant.com")
+            conn.request(
+                "GET",
+                f"/v2/general?url={URL_CABELLO_TMST}&x-api-key=38329e714321477bba68cf51da3cc822&return_page_source=true"
+            )
+            res = conn.getresponse()
+            datas = res.read()
+            datas = datas.decode("utf-8")
+            soup = BeautifulSoup(datas, 'html.parser')
+            # print(soup.prettify())
+
+            # Attempt to extract the number of shows
+            shows_element = soup.find('span', class_='sc-8d839fd8-5 iMxMG')
+            if shows_element and shows_element.text.strip():
+                shows = shows_element.text.strip()
+                break
+            else:
+                print(f"Attempt {attempt}: No products found. Let's retry!\n")
+
+        else:  # This block executes if no break occurred in the loop (all attempts failed)
+            print("After 5 attempts, no products found!\n")
+            send_email("Tickets Cabello Ticketmaster 5 attempts", "5 attempts", URL_CABELLO_TMST)
+            return
+
+        # Parse the number of shows found
+        Scraped_Tick_Num = int(shows.replace("Results", "").strip())
+        Tick_Num = load_tick_num_from_excel(sheet_name='Cabello') or 0
+        print("Scraped, Loaded:", Scraped_Tick_Num, Tick_Num)
+
+        # Decision-making based on the number of shows
+        if Scraped_Tick_Num > Tick_Num:
+            send_email("Tickets Available", "Camila Cabello Ticketmaster", URL_CABELLO_TMST)
+            save_tick_num_to_excel(Scraped_Tick_Num, sheet_name='Cabello')
+            print(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+                  "Tickets are now available for Camila Cabello Ticketmaster")
+        elif Scraped_Tick_Num < Tick_Num:
+            save_tick_num_to_excel(Scraped_Tick_Num, sheet_name='Cabello')
+            print(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+                  "No available tickets for Camila Cabello Ticketmaster, Shows reduced")
+        else:
+            print(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+                  "No available tickets for Camila Cabello Ticketmaster, Shows number didn't change")
+
+    except Exception as e:
+        send_email("Tickets Error", str(e), URL_CABELLO_TMST)
+        print(f"Error in check_Cabello_ticketmaster: {e}\nURL: {URL_CABELLO_TMST}")
+
+
+def check_metallica_ticketmaster():
+    print("\n")
+    try:
+        for attempt in range(1, 6):  # attempt will range from 1 to 10
+            # Scraping Ant
+            conn = http.client.HTTPSConnection("api.scrapingant.com")
+            conn.request(
+                "GET",
+                f"/v2/general?url={URL_METALLICA_TMST}&x-api-key=38329e714321477bba68cf51da3cc822&return_page_source=true"
+            )
+            res = conn.getresponse()
+            datas = res.read()
+            datas = datas.decode("utf-8")
+            soup = BeautifulSoup(datas, 'html.parser')
+            # print(soup.prettify())
+
+            # Attempt to extract the number of shows
+            shows_element = soup.find('span', class_='sc-8d839fd8-5 iMxMG')
+            if shows_element and shows_element.text.strip():
+                shows = shows_element.text.strip()
+                break
+            else:
+                print(f"Attempt {attempt}: No products found. Let's retry!\n")
+
+        else:  # This block executes if no break occurred in the loop (all attempts failed)
+            print("After 5 attempts, no products found!\n")
+            send_email("Tickets Metallica Ticketmaster 5 attempts", "5 attempts", URL_METALLICA_TMST)
+            return
+
+        # Parse the number of shows found
+        Scraped_Tick_Num = int(shows.replace("Results", "").strip())
+        Tick_Num = load_tick_num_from_excel(sheet_name='Metallica') or 0
+        print("Scraped, Loaded:", Scraped_Tick_Num, Tick_Num)
+
+        # Decision-making based on the number of shows
+        if Scraped_Tick_Num > Tick_Num:
+            send_email("Tickets Available", "Metallica Ticketmaster", URL_METALLICA_TMST)
+            save_tick_num_to_excel(Scraped_Tick_Num, sheet_name='Metallica')
+            print(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+                  "Tickets are now available for Metallica Ticketmaster")
+        elif Scraped_Tick_Num < Tick_Num:
+            save_tick_num_to_excel(Scraped_Tick_Num, sheet_name='Metallica')
+            print(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+                  "No available tickets for Metallica Ticketmaster, Shows reduced")
+        else:
+            print(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+                  "No available tickets for Metallica Ticketmaster, Shows number didn't change")
+
+    except Exception as e:
+        send_email("Tickets Error", str(e), URL_METALLICA_TMST)
+        print(f"Error in check_Metallica_ticketmaster: {e}\nURL: {URL_METALLICA_TMST}")
 
 
 def check_final4():
@@ -617,6 +946,7 @@ def check_uefa(url):
 
 
 def check_us_open():
+    print("\n")
     title, description = None, None
     r = req.get(US_OPEN, impersonate="chrome124")
     soup = BeautifulSoup(r.content.decode('utf-8', 'ignore'), 'xml')
@@ -636,6 +966,7 @@ def check_us_open():
 
 
 def cincinnati():
+    print("\n")
     r = req.get(CINCINNATI, impersonate="chrome124")
     soup = BeautifulSoup(r.content.decode('utf-8', 'ignore'), 'html.parser')
     # print(soup.prettify())
@@ -665,7 +996,7 @@ def main():
 
     try:
 
-        print("\n\n")
+        print("\n")
         options = uc.ChromeOptions()
         options.add_argument('--blink-settings=imagesEnabled=false')
         options.binary_location = "/usr/bin/google-chrome"
@@ -674,12 +1005,19 @@ def main():
         # CONCERTS
         # check_Adele_official_site(driver)
         # check_dua_of()
+
         check_coldplay_official_site()
         check_taylor_official_site(driver)
         check_taylor_ticketmaster()
         check_coldplay_ticketmaster()
         check_adele_ticketmaster()
         check_dua_ticketmaster()
+        check_carpenter_ticketmaster()
+        check_rodrigo_ticketmaster()
+        check_eilish_ticketmaster()
+        check_beyonce_ticketmaster()
+        check_cabello_ticketmaster()
+        check_metallica_ticketmaster()
 
         # TENNIS
         # check_AO_official_site()
@@ -694,6 +1032,8 @@ def main():
         if datetime.datetime.now().day in [24, 25]:
             check_final4()
         for url in URL_UEFA:
+            if url == 'https://uelf.hospitality.uefa.com/':
+                continue
             check_uefa(url)
 
         if datetime.datetime.now().day in [5, 10, 15, 20, 25, 30] and datetime.datetime.now().hour in [8]:
