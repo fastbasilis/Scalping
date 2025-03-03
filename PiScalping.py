@@ -224,7 +224,7 @@ def check_adele_official_site(driver):
 def check_coldplay_official_site():
     print("\n")
     try:
-        for attempt in range(1, 11):  # attempt will range from 1 to 10
+        for attempt in range(1, 6):  # attempt will range from 1 to 5
             # Scraping Ant
             conn = http.client.HTTPSConnection("api.scrapingant.com")
             conn.request("GET",
@@ -320,7 +320,7 @@ def check_dua_of():
 def check_taylor_ticketmaster():
     print("\n")
     try:
-        for attempt in range(1, 11):  # attempt will range from 1 to 10
+        for attempt in range(1, 6):  # attempt will range from 1 to 10
             # Scraping Ant
             conn = http.client.HTTPSConnection("api.scrapingant.com")
             conn.request("GET", f"/v2/general?url={URL_TAYLOR_TMAST}&x-api-key=38329e714321477bba68cf51da3cc822&return_page_source=true")
@@ -370,7 +370,7 @@ def check_taylor_ticketmaster():
 def check_coldplay_ticketmaster():
     print("\n")
     try:
-        for attempt in range(1, 11):  # attempt will range from 1 to 10
+        for attempt in range(1, 6):  # attempt will range from 1 to 10
             # Scraping Ant
             conn = http.client.HTTPSConnection("api.scrapingant.com")
             conn.request(
@@ -423,7 +423,7 @@ def check_coldplay_ticketmaster():
 def check_adele_ticketmaster():
     print("\n")
     try:
-        for attempt in range(1, 11):  # attempt will range from 1 to 10
+        for attempt in range(1, 6):  # attempt will range from 1 to 10
             # Scraping Ant
             conn = http.client.HTTPSConnection("api.scrapingant.com")
             conn.request(
@@ -476,7 +476,7 @@ def check_adele_ticketmaster():
 def check_dua_ticketmaster():
     print("\n")
     try:
-        for attempt in range(1, 11):  # attempt will range from 1 to 10
+        for attempt in range(1, 6):  # attempt will range from 1 to 10
             # Scraping Ant
             conn = http.client.HTTPSConnection("api.scrapingant.com")
             conn.request(
@@ -644,7 +644,7 @@ def cincinnati():
 
     normalized_show = ' '.join(show.split())
 
-    expected_text = ("Single Session tickets for the 2025 Cincinnati Open will go on sale in Spring 2025. "
+    expected_text = ("Single Session tickets for the 2025 Cincinnati Open will go on sale April 11, 2025. "
                      "For 24-hour early access to Single Session tickets, register for the 2025 ticket pre-sale. "
                      "Create your own Cincinnati Open experience by choosing the day, time, price and players that are the best fit for you. "
                      "Center Court Single Session tickets give you a reserved seat at Center Court, full access to the tournament grounds, including every match and practice court, a public parking lot, the opportunity to enjoy a variety of on-site entertainment, and the ability to explore our many dining and drink options. "
@@ -691,7 +691,8 @@ def main():
         cincinnati()
 
         # FOOTBALL - BASKETBALL
-        check_final4()
+        if datetime.datetime.now().day in [24, 25]:
+            check_final4()
         for url in URL_UEFA:
             check_uefa(url)
 
