@@ -341,7 +341,7 @@ def check_taylor_ticketmaster():
             # print(soup.prettify())
 
             # Attempt to extract the number of shows
-            shows_element = soup.find('span', class_='sc-8d839fd8-5 iMxMG')
+            shows_element = soup.find('span', class_='sc-51ae8756-5 iyUznC')
             if shows_element and shows_element.text.strip():
                 shows = shows_element.text.strip()
                 break
@@ -394,7 +394,7 @@ def check_coldplay_ticketmaster():
             # print(soup.prettify())
 
             # Attempt to extract the number of shows
-            shows_element = soup.find('span', class_='sc-8d839fd8-5 iMxMG')
+            shows_element = soup.find('span', class_='sc-51ae8756-5 iyUznC')
             if shows_element and shows_element.text.strip():
                 shows = shows_element.text.strip()
                 break
@@ -447,7 +447,7 @@ def check_adele_ticketmaster():
             # print(soup.prettify())
 
             # Attempt to extract the number of shows
-            shows_element = soup.find('span', class_='sc-8d839fd8-5 iMxMG')
+            shows_element = soup.find('span', class_='sc-51ae8756-5 iyUznC')
             if shows_element and shows_element.text.strip():
                 shows = shows_element.text.strip()
                 break
@@ -500,7 +500,7 @@ def check_dua_ticketmaster():
             # print(soup.prettify())
 
             # Attempt to extract the number of shows
-            shows_element = soup.find('span', class_='sc-8d839fd8-5 iMxMG')
+            shows_element = soup.find('span', class_='sc-51ae8756-5 iyUznC')
             if shows_element and shows_element.text.strip():
                 shows = shows_element.text.strip()
                 break
@@ -555,7 +555,7 @@ def check_carpenter_ticketmaster():
             # print(soup.prettify())
 
             # Attempt to extract the number of shows
-            shows_element = soup.find('span', class_='sc-8d839fd8-5 iMxMG')
+            shows_element = soup.find('span', class_='sc-51ae8756-5 iyUznC')
             if shows_element and shows_element.text.strip():
                 shows = shows_element.text.strip()
                 break
@@ -609,7 +609,7 @@ def check_rodrigo_ticketmaster():
             # print(soup.prettify())
 
             # Attempt to extract the number of shows
-            shows_element = soup.find('span', class_='sc-8d839fd8-5 iMxMG')
+            shows_element = soup.find('span', class_='sc-51ae8756-5 iyUznC')
             if shows_element and shows_element.text.strip():
                 shows = shows_element.text.strip()
                 break
@@ -662,7 +662,7 @@ def check_eilish_ticketmaster():
             # print(soup.prettify())
 
             # Attempt to extract the number of shows
-            shows_element = soup.find('span', class_='sc-8d839fd8-5 iMxMG')
+            shows_element = soup.find('span', class_='sc-51ae8756-5 iyUznC')
             if shows_element and shows_element.text.strip():
                 shows = shows_element.text.strip()
                 break
@@ -715,7 +715,7 @@ def check_beyonce_ticketmaster():
             # print(soup.prettify())
 
             # Attempt to extract the number of shows
-            shows_element = soup.find('span', class_='sc-8d839fd8-5 iMxMG')
+            shows_element = soup.find('span', class_='sc-51ae8756-5 iyUznC')
             if shows_element and shows_element.text.strip():
                 shows = shows_element.text.strip()
                 break
@@ -768,7 +768,7 @@ def check_cabello_ticketmaster():
             # print(soup.prettify())
 
             # Attempt to extract the number of shows
-            shows_element = soup.find('span', class_='sc-8d839fd8-5 iMxMG')
+            shows_element = soup.find('span', class_='sc-51ae8756-5 iyUznC')
             if shows_element and shows_element.text.strip():
                 shows = shows_element.text.strip()
                 break
@@ -821,7 +821,7 @@ def check_metallica_ticketmaster():
             # print(soup.prettify())
 
             # Attempt to extract the number of shows
-            shows_element = soup.find('span', class_='sc-8d839fd8-5 iMxMG')
+            shows_element = soup.find('span', class_='sc-51ae8756-5 iyUznC')
             if shows_element and shows_element.text.strip():
                 shows = shows_element.text.strip()
                 break
